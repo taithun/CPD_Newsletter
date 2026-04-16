@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เรื่องจริงที่สะเทือนองค์กร</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700;800&family=Kanit:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --red: #FF2D55;
+    --orange: #FF6B35;
+    --yellow: #FFD60A;
+    --green: #30D158;
+    --blue: #0A84FF;
+    --dark: #0D0D0F;
+    --card: #1C1C1E;
+    --card2: #2C2C2E;
+    --text: #F5F5F7;
+    --muted: #8E8E93;
+  }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Sarabun', sans-serif;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  .page {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 0 60px 0;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, #1a0008 0%, #0D0D0F 50%, #001a1a 100%);
+    padding: 48px 24px 40px;
+    overflow: hidden;
+    border-bottom: 1px solid #2a2a2e;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(255,45,85,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(10,132,255,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .tag {
+    display: inline-block;
+    background: rgba(255,45,85,0.15);
+    border: 1px solid rgba(255,45,85,0.4);
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .hero-title {
+    font-family: 'Kanit', sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 12px;
+  }
+
+  .hero-title span { color: var(--red); }
+
+  .hero-sub {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .hero-emoji {
+    font-size: 52px;
+    position: absolute;
+    right: 24px;
+    top: 44px;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 16px rgba(255,45,85,0.4));
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 28px 24px 10px;
+  }
+
+  /* STORY CARD */
+  .story-card {
+    margin: 0 16px 12px;
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid #2a2a2e;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .story-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--orange));
+  }
+
+  .story-intro {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+
+  .story-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .story-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .story-list li .icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .highlight {
+    color: var(--red);
+    font-weight: 700;
+  }
+
+  .highlight-o { color: var(--orange); font-weight: 700; }
+  .highlight-y { color: var(--yellow); font-weight: 700; }
+
+  /* IMPACT GRID */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 0 16px 12px;
+  }
+
+  .impact-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 18px 16px;
+    border: 1px solid #2a2a2e;
+  }
+
+  .impact-card.full { grid-column: 1 / -1; }
+
+  .impact-icon { font-size: 26px; margin-bottom: 8px; }
+
+  .impact-label {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .impact-text {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  /* PREVENTION */
+  .prev-list {
+    margin: 0 16px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .prev-item {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #2a2a2e;
+    transition: border-color 0.2s;
+  }
+
+  .prev-item:hover { border-color: #3a3a3e; }
+
+  .prev-num {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: rgba(10,132,255,0.15);
+    border: 1px solid rgba(10,132,255,0.3);
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .prev-text { font-size: 14px; line-height: 1.5; }
+  .prev-text strong { display: block; font-size: 15px; margin-bottom: 2px; }
+  .prev-text small { color: var(--muted); font-size: 12px; }
+
+  /* PUNISHMENT */
+  .punish-wrap { margin: 0 16px 12px; }
+
+  .punish-main {
+    background: linear-gradient(135deg, rgba(255,45,85,0.1), rgba(255,107,53,0.05));
+    border: 1px solid rgba(255,45,85,0.3);
+    border-radius: 20px;
+    padding: 22px;
+    margin-bottom: 8px;
+  }
+
+  .punish-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--red);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+
+  .punish-title {
+    font-family: 'Kanit', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .punish-sub { font-size: 13px; color: var(--muted); }
+
+  .punish-scale {
+    background: var(--card);
+    border: 1px solid #2a2a2e;
+    border-radius: 16px;
+    padding: 18px;
+  }
+
+  .punish-scale-title {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .scale-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .scale-step {
+    flex-shrink: 0;
+    text-align: center;
+  }
+
+  .scale-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin: 0 auto 4px;
+  }
+
+  .scale-line {
+    height: 2px;
+    width: 18px;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .scale-text { font-size: 10px; color: var(--muted); white-space: nowrap; }
+
+  .step-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 4px;
+  }
+
+  .step-pill {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .arrow { font-size: 12px; color: var(--muted); padding: 0 4px; flex-shrink: 0; }
+
+  /* QUOTE */
+  .quote-block {
+    margin: 0 16px 16px;
+    background: linear-gradient(135deg, rgba(48,209,88,0.08), rgba(10,132,255,0.06));
+    border: 1px solid rgba(48,209,88,0.2);
+    border-radius: 20px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+
+  .quote-icon { font-size: 32px; margin-bottom: 12px; }
+
+  .quote-text {
+    font-family: 'Kanit', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: var(--green);
+  }
+
+  .quote-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 0 24px 24px;
+  }
+
+  .footer-text {
+    font-size: 11px;
+    color: #3a3a3e;
+    letter-spacing: 1px;
+  }
+
+  /* ANIMATE */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero        { animation: fadeUp 0.5s ease both; }
+  .story-card  { animation: fadeUp 0.5s ease 0.1s both; }
+  .impact-grid { animation: fadeUp 0.5s ease 0.2s both; }
+  .prev-list   { animation: fadeUp 0.5s ease 0.3s both; }
+  .punish-wrap { animation: fadeUp 0.5s ease 0.4s both; }
+  .quote-block { animation: fadeUp 0.5s ease 0.5s both; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="tag">🔴 Compliance Case Study</div>
+    <div class="hero-emoji">💻</div>
+    <h1 class="hero-title">
+      การละเมิดความไว้วางใจ<br>
+      <span>สะเทือนได้ทั้งองค์กร</span>
+    </h1>
+    <p class="hero-sub">กรณีศึกษาจริง — การทุจริตทรัพย์สินของหน่วยงาน<br>บทเรียนสำคัญที่บุคลากรทุกคนควรรับรู้</p>
+  </div>
+
+  <!-- WHAT HAPPENED -->
+  <div class="section-label">📌 สิ่งที่เกิดขึ้น</div>
+  <div class="story-card">
+    <p class="story-intro">พนักงานผู้รับผิดชอบงานทะเบียนทรัพย์สินไอที ซึ่งได้รับความไว้วางใจจากองค์กร กระทำการดังต่อไปนี้</p>
+    <ul class="story-list">
+      <li>
+        <span class="icon">📦</span>
+        <span>นำคอมพิวเตอร์ <span class="highlight">หลายสิบเครื่อง</span> ออกจากสำนักงานโดยไม่ได้รับอนุญาต</span>
+      </li>
+      <li>
+        <span class="icon">🏷️</span>
+        <span>นำทรัพย์สินไปจำนำเพื่อใช้เงิน <span class="highlight-o">เพียงหลักแสนบาท</span> ทั้งที่ทรัพย์สินมีมูลค่า <span class="highlight">หลายล้านบาท</span></span>
+      </li>
+      <li>
+        <span class="icon">🔍</span>
+        <span>ผู้บังคับบัญชาทราบเรื่องและสั่งการให้ไถ่ถอนคืน แต่พบว่าโน้ตบุ๊ก <span class="highlight">2 เครื่องสูญหายถาวร</span></span>
+      </li>
+      <li>
+        <span class="icon">📹</span>
+        <span>กล้องวงจรปิด <span class="highlight-y">บันทึกพฤติกรรมและยืนยันหลักฐานไว้ครบถ้วน</span></span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- IMPACT -->
+  <div class="section-label">⚡ ผลกระทบที่เกิดขึ้น</div>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-icon">👤</div>
+      <div class="impact-label">ต่อตัวผู้กระทำ</div>
+      <div class="impact-text">เสียชื่อเสียง สิ้นสุดอาชีพ รับผิดทางกฎหมาย</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">🏢</div>
+      <div class="impact-label">ต่อองค์กร</div>
+      <div class="impact-text">สูญเสียทรัพย์สินและภาพลักษณ์</div>
+    </div>
+    <div class="impact-card full">
+      <div class="impact-icon">🤝</div>
+      <div class="impact-label">ต่อบุคลากรและองค์กรโดยรวม</div>
+      <div class="impact-text">ความเชื่อมั่นลดลง • ภาระการตรวจสอบเพิ่มขึ้น • ทุกคนได้รับผลกระทบจากการกระทำของคนเพียงคนเดียว</div>
+    </div>
+  </div>
+
+  <!-- PREVENTION -->
+  <div class="section-label">🛡️ แนวทางป้องกัน</div>
+  <div class="prev-list">
+    <div class="prev-item">
+      <div class="prev-num">1</div>
+      <div class="prev-text">
+        <strong>จัดให้มีการตรวจนับทรัพย์สินอย่างสม่ำเสมอ</strong>
+        <small>ช่องว่างเกิดจากการขาดการตรวจสอบที่ต่อเนื่อง</small>
+      </div>
+    </div>
+    <div class="prev-item">
+      <div class="prev-num">2</div>
+      <div class="prev-text">
+        <strong>กำหนดระบบเบิก-คืนที่มีเอกสารกำกับชัดเจน</strong>
+        <small>ทุกความเคลื่อนไหวของทรัพย์สินต้องตรวจสอบได้</small>
+      </div>
+    </div>
+    <div class="prev-item">
+      <div class="prev-num">3</div>
+      <div class="prev-text">
+        <strong>ใช้ระบบอนุมัติหลายระดับ (Separation of Duties)</strong>
+        <small>ป้องกันไม่ให้บุคคลใดมีอำนาจตัดสินใจเพียงผู้เดียว</small>
+      </div>
+    </div>
+    <div class="prev-item">
+      <div class="prev-num">4</div>
+      <div class="prev-text">
+        <strong>ติดตั้งและทบทวนภาพจากกล้องวงจรปิดสม่ำเสมอ</strong>
+        <small>การบันทึกต้องคู่กับการตรวจสอบจึงมีประสิทธิผล</small>
+      </div>
+    </div>
+    <div class="prev-item">
+      <div class="prev-num">5</div>
+      <div class="prev-text">
+        <strong>ส่งเสริมวัฒนธรรมจริยธรรมและความซื่อสัตย์</strong>
+        <small>กระบวนการที่ดีต้องเริ่มจากจิตสำนึกของบุคลากร</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUNISHMENT -->
+  <div class="section-label">⚖️ บทลงโทษ</div>
+  <div class="punish-wrap">
+    <div class="punish-main">
+      <div class="punish-badge">🔴 ผู้กระทำผิดโดยตรง</div>
+      <div class="punish-title">โทษวินัยสูงสุด — ไล่ออก</div>
+      <div class="punish-sub">พร้อมการดำเนินคดีทางอาญาตามกฎหมายที่เกี่ยวข้อง</div>
+    </div>
+    <div class="punish-scale">
+      <div class="punish-scale-title">ผู้เกี่ยวข้อง — โทษตามระดับความรุนแรง</div>
+      <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+        <span class="step-pill" style="background:rgba(255,214,10,0.15);color:#FFD60A;border:1px solid rgba(255,214,10,0.3)">ภาคทัณฑ์</span>
+        <span class="arrow">→</span>
+        <span class="step-pill" style="background:rgba(255,107,53,0.15);color:#FF9F0A;border:1px solid rgba(255,107,53,0.3)">ตัดเงินเดือน</span>
+        <span class="arrow">→</span>
+        <span class="step-pill" style="background:rgba(255,107,53,0.15);color:#FF6B35;border:1px solid rgba(255,107,53,0.3)">ลดขั้นเงินเดือน</span>
+        <span class="arrow">→</span>
+        <span class="step-pill" style="background:rgba(255,45,85,0.15);color:#FF2D55;border:1px solid rgba(255,45,85,0.3)">ปลดออก</span>
+        <span class="arrow">→</span>
+        <span class="step-pill" style="background:rgba(255,45,85,0.25);color:#FF2D55;border:1px solid rgba(255,45,85,0.5)">ไล่ออก</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE -->
+  <div class="quote-block">
+    <div class="quote-icon">🔑</div>
+    <div class="quote-text">"ทรัพย์สินขององค์กร<br>คือความรับผิดชอบร่วมกัน"</div>
+    <div class="quote-desc">การละเมิดความไว้วางใจแม้เพียงคนเดียว<br>สามารถสร้างความเสียหายอย่างกว้างขวางต่อทั้งบุคคลและองค์กร<br><br>ระบบควบคุมที่เข้มแข็ง + จริยธรรมในการทำงาน = องค์กรที่มั่นคงและยั่งยืน</div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">COMPLIANCE DIVISION · PEA · กฟภ.</div>
+  </div>
+
+</div>
+</body>
+</html>
